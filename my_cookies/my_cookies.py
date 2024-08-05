@@ -39,17 +39,13 @@ def main():
             print("get cookie from Microsoft Edge failed", file=sys.stderr)
             return
 
-    leetcode_cookies = list(
-        filter(lambda c: c.name in ("LEETCODE_SESSION", "csrftoken"), cookiejar)
-    )
-
-    if len(leetcode_cookies) < 2:
+    if len(cookiejar) == 0:
         print(
             "get cookie failed, make sure you have Chrome, Chromium, Brave, Firefox or Edge installed and login in LeetCode with one of them at least once."
         )
         return
 
-    for c in leetcode_cookies:
+    for c in cookiejar:
         print(c.name, c.value)
 
 
