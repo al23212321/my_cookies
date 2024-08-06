@@ -5,14 +5,14 @@ setup(
     packages=["my_cookies"],
     version="0.1.3",
     license="MIT",
-    description="Retrieve chrome cookies",
+    description="Retrieve cookies from your favorite browsers.",
     author="Wang Kai",
     author_email="kaiwkx@gmail.com",
     url="https://github.com/kaiwk/my_cookies",
     download_url="https://github.com/kaiwk/my_cookies",
     keywords=["browser", "cookies"],
     scripts=["bin/my_cookies"],
-    install_requires=["browser_cookie3"],
+    install_requires=["click", "browser_cookie3"],
     classifiers=[
         # Chose either "3 - Alpha", "4 - Beta", or "5 - Production/Stable"
         "Development Status :: 3 - Alpha",
