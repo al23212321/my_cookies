@@ -3,7 +3,7 @@ from setuptools import setup
 setup(
     name="my_cookies",
     packages=["my_cookies"],
-    version="0.1.3",
+    version="0.1.4",
     license="MIT",
     description="Retrieve cookies from your favorite browsers.",
     author="Wang Kai",
