@@ -1,11 +1,17 @@
 from setuptools import setup
+from pathlib import Path
+
+this_directory = Path(__file__).parent
+long_description = (this_directory / "README.md").read_text()
 
 setup(
     name="my_cookies",
     packages=["my_cookies"],
-    version="0.1.4",
+    version="0.1.5",
     license="MIT",
     description="Retrieve cookies from your favorite browsers.",
+    long_description=long_description,
+    long_description_content_type='text/markdown',
     author="Wang Kai",
     author_email="kaiwkx@gmail.com",
     url="https://github.com/kaiwk/my_cookies",
