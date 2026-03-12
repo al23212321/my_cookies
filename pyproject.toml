@@ -1,0 +1,40 @@
+[project]
+name = "my_cookies"
+version = "0.1.6"
+description = "Retrieve cookies from your favorite browsers."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE.txt"]
+authors = [
+    {name = "Wang Kai", email = "kaiwkx@gmail.com"}
+]
+keywords = ["browser", "cookies"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.4",
+    "Programming Language :: Python :: 3.5",
+    "Programming Language :: Python :: 3.6",
+]
+requires-python = ">=3.4"
+dependencies = [
+    "click",
+    "browser_cookie3",
+]
+
+[project.urls]
+Homepage = "https://github.com/kaiwk/my_cookies"
+Download = "https://github.com/kaiwk/my_cookies"
+Repository = "https://github.com/kaiwk/my_cookies"
+
+[project.scripts]
+my_cookies = "my_cookies.my_cookies:main"
+
+[build-system]
+requires = ["setuptools>=77.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["my_cookies*"]

@@ -8,9 +8,9 @@ import browser_cookie3
 
 @click.command()
 @click.option('-d', '--domain-name', help='The target domain, e.g. xxx.com')
-@click.option('-k', '--keys', help='Keys to retrieve from cookies. \
-It should be the comma separated string, e.g. key1,key2,key3. If it \
-is not specified all keys will be retrieved.')
+@click.option('-k', '--keys', help='Keys to retrieve from cookies. '
+'It should be the comma separated string, e.g. key1,key2,key3. If it '
+'is not specified all keys will be retrieved.')
 def retrieve_cookies(domain_name, keys):
     "Retrieve cookies from the domain. Print the result to stdout."
     cookiejar = None
@@ -29,6 +29,8 @@ def retrieve_cookies(domain_name, keys):
         "Brave": browser_cookie3.brave,
         "Firefox": browser_cookie3.firefox,
         "Edge": browser_cookie3.edge,
+        "Vivaldi": browser_cookie3.vivaldi,
+        "Opera": browser_cookie3.opera,
     }
 
     for browser_name, loaders in cookie_loaders.items():
@@ -43,9 +45,9 @@ def retrieve_cookies(domain_name, keys):
                   file=sys.stderr)
 
     if not cookiejar or len(cookiejar) == 0:
-        print("Get cookie failed, make sure you have Chrome, Chromium, Brave, \
-        Firefox or Edge installed and login in LeetCode with one of them at \
-        least once.")
+        print("Get cookie failed, make sure you have Chrome, Chromium, Brave, "
+              "Firefox or Edge installed and login in LeetCode with one of them at "
+              "least once.")
         return
 
     retrieve_all_keys = len(cookie_keys) == 0
