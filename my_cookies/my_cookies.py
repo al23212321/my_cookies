@@ -1,9 +1,36 @@
+#!/usr/bin/env python3
 """Retrieve leetcode cookies from Chrome with local keyring"""
 
 import sys
 
 import click
 import browser_cookie3
+
+
+class _FirefoxXDG(browser_cookie3.FirefoxBased):
+    """Firefox with XDG Base Directory support (Firefox 128+)."""
+
+    def __init__(self, cookie_file=None, domain_name="", key_file=None):
+        args = {
+            'linux_data_dirs': [
+                '~/snap/firefox/common/.mozilla/firefox',
+                '~/.config/mozilla/firefox',         # XDG config path (Firefox 128+)
+                '~/.local/share/mozilla/firefox',    # XDG data path (alternative)
+                '~/.mozilla/firefox',
+            ],
+            'windows_data_dirs': [
+                {'env': 'APPDATA', 'path': r'Mozilla\Firefox'},
+                {'env': 'LOCALAPPDATA', 'path': r'Mozilla\Firefox'},
+            ],
+            'osx_data_dirs': [
+                '~/Library/Application Support/Firefox',
+            ],
+        }
+        super().__init__('Firefox', cookie_file, domain_name, key_file, **args)
+
+
+def _firefox_xdg(domain_name=""):
+    return _FirefoxXDG(domain_name=domain_name).load()
 
 
 @click.command()
@@ -27,16 +54,17 @@ def retrieve_cookies(domain_name, keys):
         "Chrome": browser_cookie3.chrome,
         "Chromium": browser_cookie3.chromium,
         "Brave": browser_cookie3.brave,
-        "Firefox": browser_cookie3.firefox,
+        "Firefox": _firefox_xdg,
+        "LibreWolf": browser_cookie3.librewolf,
         "Edge": browser_cookie3.edge,
         "Vivaldi": browser_cookie3.vivaldi,
         "Opera": browser_cookie3.opera,
+        "Opera GX": browser_cookie3.opera_gx,
+        "Arc": browser_cookie3.arc,
     }
 
     for browser_name, loaders in cookie_loaders.items():
         try:
-            # Ideally, we may select the latest cookie, but it's hard to
-            # determine which one really is.
             cookiejar = loaders(domain_name=domain_name)
             if cookiejar:
                 break
@@ -46,8 +74,8 @@ def retrieve_cookies(domain_name, keys):
 
     if not cookiejar or len(cookiejar) == 0:
         print("Get cookie failed, make sure you have Chrome, Chromium, Brave, "
-              "Firefox or Edge installed and login in LeetCode with one of them at "
-              "least once.")
+              "Firefox, LibreWolf, Edge, Vivaldi, Opera, Opera GX, or Arc "
+              "installed and logged in to the domain at least once.")
         return
 
     retrieve_all_keys = len(cookie_keys) == 0
